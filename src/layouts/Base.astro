@@ -1,0 +1,29 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+}
+const { title, description, noindex } = Astro.props;
+---
+
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    {description && <meta name="description" content={description} />}
+    {noindex && <meta name="robots" content="noindex" />}
+  </head>
+  <body>
+    <slot />
+    <script
+      is:inline
+      data-goatcounter="https://gerald-serafin.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"></script>
+  </body>
+</html>

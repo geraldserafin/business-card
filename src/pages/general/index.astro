@@ -1,14 +1,12 @@
-<!doctype html>
-<html lang="pl">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gerald Serafin</title>
-  <meta name="description" content="Gerald Serafin, student informatyki z Gdańska. Szukam pracy.">
-  <link rel="stylesheet" href="../style.css">
-</head>
-<body>
-<main>
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base
+  title="Gerald Serafin"
+  description="Gerald Serafin, student informatyki z Gdańska. Szukam pracy."
+>
+  <main>
   <p class="eyebrow">Cześć, tu Gerald z Talent Days</p>
   <h1>Gerald Serafin</h1>
   <p class="lead">Student informatyki z Gdańska. Szukam pracy: najchętniej w IT, ale otwarty jestem też na inne role.</p>
@@ -34,8 +32,6 @@
     <li><a href="https://github.com/geraldserafin">GitHub</a></li>
   </ul>
 
-  <p class="switch">Szukasz programisty? <a href="../">Zobacz wersję dla developerów</a>.</p>
+  <p class="switch">Szukasz programisty? <a href="../">Zobacz wersję dla developerów</a>. Masz chwilę? <a href="../feedback/?v=general">Powiedz, jak ci smakowała wróżba</a>.</p>
 </main>
-<script data-goatcounter="https://gerald-serafin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-</body>
-</html>
+</Base>

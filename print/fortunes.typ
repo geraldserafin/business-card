@@ -22,7 +22,7 @@
       v(1fr),
       text(size: 7pt, fill: luma(90))[Gerald Serafin · Talent Days · 530 585 515],
     ),
-    align(horizon + center, image("../qr/main.svg", width: 2.1cm)),
+    align(horizon + center, image("../public/qr/main.svg", width: 2.1cm)),
   ),
 )
 

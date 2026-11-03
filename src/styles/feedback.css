@@ -1,0 +1,36 @@
+.bar { position: fixed; inset: 0 0 auto 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--line); }
+.bar-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 34rem; margin: 0 auto; padding: .6rem 16px; }
+.bar a.name { font-family: var(--serif); font-weight: 600; text-decoration: none; }
+.bar .btn { padding: .4rem .9rem; font-size: .9rem; }
+.progress { height: 2px; background: var(--line); }
+.progress i { display: block; height: 100%; width: 0; background: var(--fg); transition: width .3s ease; }
+
+main { padding-top: 6rem; }
+.step:not([hidden]) { animation: in .25s ease-out; }
+@keyframes in { from { opacity: 0; transform: translateY(10px); } }
+@media (prefers-reduced-motion: reduce) { .step:not([hidden]) { animation: none; } .progress i { transition: none; } }
+
+.step h1 { font-size: 2rem; }
+.step h2 { margin-top: 0; border: 0; padding: 0; font-size: 1.6rem; }
+.hint { color: var(--muted); font-size: .9rem; }
+.opts { display: grid; gap: .5rem; margin-top: 1.25rem; }
+.opt { display: flex; align-items: center; gap: .7rem; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 3px; cursor: pointer; }
+.opt:hover { border-color: var(--muted); }
+.opt:has(input:checked) { border-color: var(--fg); }
+.opt input { margin: 0; accent-color: var(--fg); }
+input[type=text], textarea { display: block; width: 100%; margin-top: 1.25rem; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: 3px; background: var(--bg); color: var(--fg); font: inherit; }
+input[type=text]:focus, textarea:focus { outline: 0; border-color: var(--fg); }
+.field { margin-top: 1rem; }
+.field input { margin-top: .25rem; }
+.field label { font-size: .9rem; }
+textarea { min-height: 8rem; resize: vertical; }
+
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 2rem; }
+.nav .btn { font: inherit; font-weight: 500; cursor: pointer; background: var(--bg); }
+.nav #next { min-width: 9rem; background: var(--accent); color: var(--accent-fg); border-color: var(--accent); transition: transform .18s ease-out; }
+.nav #next:disabled { opacity: .35; cursor: default; }
+.nav #skip { border: 0; color: var(--muted); text-decoration: underline; }
+.nav #back { border-color: var(--line); }
+.note { min-height: 1.4em; margin: .75rem 0 0; color: var(--muted); font-size: .9rem; text-align: center; }
+.big { width: 100%; margin-top: 1.5rem; font: inherit; font-weight: 500; cursor: pointer; }
+[hidden] { display: none !important; }

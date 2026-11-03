@@ -1,17 +1,12 @@
-<!doctype html>
-<html lang="pl">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Gerald Serafin, developer</title>
-    <meta
-      name="description"
-      content="Gerald Serafin, frontend developer z Gdańska. SvelteKit, TypeScript, React."
-    />
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <main>
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base
+  title="Gerald Serafin, developer"
+  description="Gerald Serafin, frontend developer z Gdańska. SvelteKit, TypeScript, React."
+>
+  <main>
       <p class="eyebrow">Cześć, tu Gerald z Talent Days</p>
       <h1>Gerald Serafin</h1>
       <p class="lead">
@@ -87,8 +82,7 @@
 
       <p class="switch">
         Szukasz kogoś do innej roli? <a href="general/">Zobacz wersję ogólną</a>.
+        Masz chwilę? <a href="feedback/">Powiedz, jak ci smakowała wróżba</a>.
       </p>
     </main>
-    <script data-goatcounter="https://gerald-serafin.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
-  </body>
-</html>
+</Base>
