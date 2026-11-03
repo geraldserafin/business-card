@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Serafin;Gerald;;;
+FN:Gerald Serafin
+TITLE:Software Developer
+TEL;TYPE=CELL:+48530585515
+EMAIL:serafingerald@protonmail.com
+ADR;TYPE=HOME:;;;Gdańsk;;;Polska
+URL:https://linkedin.com/in/gerald-serafin
+URL:https://github.com/geraldserafin
+NOTE:Poznany na Talent Days
+END:VCARD
