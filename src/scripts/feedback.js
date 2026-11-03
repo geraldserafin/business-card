@@ -43,7 +43,7 @@ function show(n) {
   next.textContent = i === 0 ? "Zaczynamy" : i === last ? "Wyślij" : "Dalej";
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
-  for (const el of runaways) el.style.transform = "none";
+  optList.append(...optOrder);
   if (key === "reason") $("why-label").textContent = WHY[value("invite")];
   steps[i].querySelector("input[type=text],textarea")?.focus({ preventScroll: true });
 }
@@ -73,53 +73,53 @@ form.addEventListener("keydown", (e) => {
 });
 form.addEventListener("submit", (e) => e.preventDefault());
 
-// Uciekające opcje „Może” i „Raczej nie”: kilka uników, potem się poddają
-// i można je normalnie wybrać. Mysz i dotyk; klawiatura działa od razu.
+// Uciekająca opcja „Raczej nie”: zamienia się miejscami z inną opcją (animacja
+// FLIP, więc nic nie zasłania), po kilku uniku się poddaje. Mysz i dotyk;
+// klawiatura działa od razu.
 const MAX_DODGES = 3;
 const LINES = ["Ej!", "Za wolny/a 😏", "Ostatni raz…"];
-const dodges = new WeakMap();
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const rand = (a, b) => a + Math.random() * (b - a);
+const runaway = form.querySelector('input[value="Nie"]').closest(".opt");
+const optList = runaway.parentElement;
+const optOrder = [...optList.children];
+let dodges = 0;
 
-// Skok o min–max px w stronę, w którą jest więcej miejsca (lo <= 0 <= hi).
-function jump(lo, hi, min, max) {
-  const dir = hi >= -lo ? 1 : -1;
-  const room = dir > 0 ? hi : -lo;
-  return dir * Math.min(room, rand(min, max));
+function dodge() {
+  const opts = [...optList.children];
+  const before = opts.map((el) => el.getBoundingClientRect().top);
+  const from = opts.indexOf(runaway);
+  let to;
+  do to = Math.floor(Math.random() * opts.length); while (to === from);
+  optList.insertBefore(runaway, opts.filter((el) => el !== runaway)[to] ?? null);
+
+  // FLIP: każda opcja wjeżdża z dawnego miejsca na nowe
+  opts.forEach((el, k) => {
+    el.style.transition = "none";
+    el.style.transform = `translateY(${before[k] - el.getBoundingClientRect().top}px)`;
+  });
+  optList.getBoundingClientRect();
+  for (const el of opts) {
+    el.style.transition = "transform .28s ease";
+    el.style.transform = "";
+  }
+
+  dodges++;
+  note.textContent = dodges === MAX_DODGES ? "Dobra, poddaję się. Klikaj 🙂" : LINES[dodges - 1];
 }
 
-function dodge(el) {
-  el.style.transform = "none";
-  const r = el.getBoundingClientRect();
-  const m = 12;
-  const navTop = $("nav").getBoundingClientRect().top;
-  const dx = jump(m - r.left, innerWidth - r.right - m, 40, 120);
-  const dy = jump(Math.max(70 - r.top, -160), Math.min(navTop - r.bottom - m, 160), 60, 140);
-  el.style.transform = `translate(${dx}px, ${dy}px)`;
-  const n = dodges.get(el) ?? 0;
-  dodges.set(el, n + 1);
-  note.textContent = n + 1 === MAX_DODGES ? "Dobra, poddaję się. Klikaj 🙂" : LINES[n];
-}
-
-const runaways = [...form.querySelectorAll('input[name="invite"]')]
-  .filter((input) => input.value !== "Tak")
-  .map((input) => input.closest(".opt"));
-const canDodge = (el) => !calm && (dodges.get(el) ?? 0) < MAX_DODGES;
-
-for (const el of runaways) {
-  el.addEventListener("pointerenter", (e) => {
-    if (e.pointerType === "mouse" && canDodge(el)) dodge(el);
-  });
-  el.addEventListener("pointerdown", (e) => {
-    suppressClick = false;
-    if (e.pointerType === "mouse" || !canDodge(el)) return;
-    suppressClick = true;
-    dodge(el);
-  });
-  el.addEventListener("click", (e) => {
-    if (suppressClick) { e.preventDefault(); suppressClick = false; }
-  });
-}
+const canDodge = () => !calm && dodges < MAX_DODGES;
+runaway.addEventListener("pointerenter", (e) => {
+  if (e.pointerType === "mouse" && canDodge()) dodge();
+});
+runaway.addEventListener("pointerdown", (e) => {
+  suppressClick = false;
+  if (e.pointerType === "mouse" || !canDodge()) return;
+  suppressClick = true;
+  dodge();
+});
+runaway.addEventListener("click", (e) => {
+  if (suppressClick) { e.preventDefault(); suppressClick = false; }
+});
 
 async function send() {
   const data = new FormData();
