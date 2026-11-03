@@ -27,7 +27,7 @@ if (new URLSearchParams(location.search).get("v") === "general") {
 const $ = (id) => document.getElementById(id);
 const form = $("form");
 const steps = [...form.querySelectorAll(".step")];
-const next = $("next"), back = $("back"), skip = $("skip"), note = $("note");
+const next = $("next"), back = $("back"), note = $("note");
 const last = steps.length - 1;
 let i = 0;
 let suppressClick = false;
@@ -38,10 +38,8 @@ function show(n) {
   i = n;
   steps.forEach((s, k) => (s.hidden = k !== i));
   $("bar").style.width = `${(i / (last + 1)) * 100}%`;
-  back.hidden = i <= 1;
+  back.hidden = i === 0;
   const key = steps[i].dataset.key;
-  skip.hidden = steps[i].hasAttribute("data-required") || i === 0 || i === last;
-  next.classList.toggle("wide", i === 0);
   next.textContent = i === 0 ? "Zaczynamy" : i === last ? "Wyślij" : "Dalej";
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
@@ -56,7 +54,6 @@ function go() {
 }
 
 back.addEventListener("click", () => show(i - 1));
-skip.addEventListener("click", () => show(i + 1));
 next.addEventListener("click", (e) => {
   if (suppressClick) { e.preventDefault(); suppressClick = false; return; }
   go();
