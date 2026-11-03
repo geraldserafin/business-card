@@ -38,11 +38,10 @@ function show(n) {
   i = n;
   steps.forEach((s, k) => (s.hidden = k !== i));
   $("bar").style.width = `${(i / (last + 1)) * 100}%`;
-  $("nav").hidden = i === 0;
   back.hidden = i <= 1;
   const key = steps[i].dataset.key;
-  skip.hidden = steps[i].hasAttribute("data-required") || i === last;
-  next.textContent = i === last ? "Wyślij" : "Dalej";
+  skip.hidden = steps[i].hasAttribute("data-required") || i === 0 || i === last;
+  next.textContent = i === 0 ? "Zaczynamy" : i === last ? "Wyślij" : "Dalej";
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
   if (key === "reason") $("why-label").textContent = WHY[value("invite")];
@@ -55,7 +54,6 @@ function go() {
   show(i + 1);
 }
 
-$("start").addEventListener("click", () => show(1));
 back.addEventListener("click", () => show(i - 1));
 skip.addEventListener("click", () => show(i + 1));
 next.addEventListener("click", (e) => {
