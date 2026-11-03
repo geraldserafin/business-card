@@ -1,10 +1,10 @@
 // Wrozby do ciasteczek: A4, 2 kolumny x 8 rzedow, ciac po liniach.
-// kind: "dev" -> QR do /dev, "general" -> QR do wersji ogolnej.
+// kind: "dev" -> QR do /dev, "dev" tez, wszystko na strone glowna.
 #let fortunes = (
   (kind: "dev", text: [Zatrudnisz zdolnego młodego developera o imieniu Gerald, poznanego na Talent Days.]),
-  (kind: "general", text: [Szczęśliwe liczby: *5 3 0 5 8 5 5 1 5*. Zadzwoń, nie sprawdzaj losowania.]),
+  (kind: "dev", text: [Szczęśliwe liczby: *5 3 0 5 8 5 5 1 5*. Zadzwoń, nie sprawdzaj losowania.]),
   (kind: "dev", text: [Zadzwonisz dziś pod numer *530 585 515* w sprawie oferty pracy. To nie przypadek.]),
-  (kind: "general", text: [Ciasteczko przewiduje, że ten rok zakończysz z nowym pracownikiem. Ma na imię Gerald.]),
+  (kind: "dev", text: [Ciasteczko przewiduje, że ten rok zakończysz z nowym pracownikiem. Ma na imię Gerald.]),
 )
 
 #set page(paper: "a4", margin: (x: 0.8cm, y: 1.2cm))
@@ -22,7 +22,7 @@
       v(1fr),
       text(size: 7pt, fill: luma(90))[Gerald Serafin · Talent Days · 530 585 515],
     ),
-    align(horizon + center, image("../qr/" + f.kind + ".svg", width: 2.1cm)),
+    align(horizon + center, image("../qr/main.svg", width: 2.1cm)),
   ),
 )
 
