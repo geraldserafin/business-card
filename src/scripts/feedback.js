@@ -41,6 +41,7 @@ function show(n) {
   back.hidden = i <= 1;
   const key = steps[i].dataset.key;
   skip.hidden = steps[i].hasAttribute("data-required") || i === 0 || i === last;
+  next.classList.toggle("wide", i === 0);
   next.textContent = i === 0 ? "Zaczynamy" : i === last ? "Wyślij" : "Dalej";
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
