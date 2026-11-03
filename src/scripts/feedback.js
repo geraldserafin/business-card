@@ -43,6 +43,7 @@ function show(n) {
   next.textContent = i === 0 ? "Zaczynamy" : i === last ? "Wyślij" : "Dalej";
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
+  next.style.transform = "none";
   if (key === "reason") $("why-label").textContent = WHY[value("invite")];
   steps[i].querySelector("input[type=text],textarea")?.focus({ preventScroll: true });
 }
@@ -102,7 +103,8 @@ function dodge() {
   if (dodges === MAX_DODGES) note.textContent = "Dobra, poddaję się. Klikaj 🙂";
 }
 
-const canDodge = () => !calm && i === last && dodges < MAX_DODGES;
+// ucieka tylko przy „Tak”; kto ma uwagi, nie powinien gonić przycisku
+const canDodge = () => !calm && i === last && dodges < MAX_DODGES && value("invite") === "Tak";
 next.addEventListener("pointerenter", (e) => {
   if (e.pointerType === "mouse" && canDodge()) dodge();
 });
