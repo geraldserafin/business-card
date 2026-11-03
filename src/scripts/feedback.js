@@ -43,7 +43,7 @@ function show(n) {
   next.textContent = i === 0 ? "Zaczynamy" : i === last ? "Wyślij" : "Dalej";
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
-  next.style.transform = "none";
+  for (const el of runaways) el.style.transform = "none";
   if (key === "reason") $("why-label").textContent = WHY[value("invite")];
   steps[i].querySelector("input[type=text],textarea")?.focus({ preventScroll: true });
 }
@@ -55,10 +55,7 @@ function go() {
 }
 
 back.addEventListener("click", () => show(i - 1));
-next.addEventListener("click", (e) => {
-  if (suppressClick) { e.preventDefault(); suppressClick = false; return; }
-  go();
-});
+next.addEventListener("click", go);
 
 form.addEventListener("change", (e) => {
   const key = steps[i].dataset.key;
@@ -76,11 +73,11 @@ form.addEventListener("keydown", (e) => {
 });
 form.addEventListener("submit", (e) => e.preventDefault());
 
-// Uciekający przycisk „Wyślij”: kilka uników, potem się poddaje. Mysz i dotyk;
-// klawiatura (Enter/Spacja) zawsze wysyła od razu.
+// Uciekające opcje „Może” i „Raczej nie”: kilka uników, potem się poddają
+// i można je normalnie wybrać. Mysz i dotyk; klawiatura działa od razu.
 const MAX_DODGES = 3;
 const LINES = ["Ej!", "Za wolny/a 😏", "Ostatni raz…"];
-let dodges = 0;
+const dodges = new WeakMap();
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const rand = (a, b) => a + Math.random() * (b - a);
 
@@ -91,29 +88,38 @@ function jump(lo, hi, min, max) {
   return dir * Math.min(room, rand(min, max));
 }
 
-function dodge() {
-  next.style.transform = "none";
-  const r = next.getBoundingClientRect();
+function dodge(el) {
+  el.style.transform = "none";
+  const r = el.getBoundingClientRect();
   const m = 12;
-  const dx = jump(m - r.left, innerWidth - r.right - m, 60, 160);
-  const dy = jump(Math.max(70 - r.top, -120), Math.min(innerHeight - r.bottom - m, 120), 40, 100);
-  next.style.transform = `translate(${dx}px, ${dy}px)`;
-  note.textContent = LINES[dodges];
-  dodges++;
-  if (dodges === MAX_DODGES) note.textContent = "Dobra, poddaję się. Klikaj 🙂";
+  const navTop = $("nav").getBoundingClientRect().top;
+  const dx = jump(m - r.left, innerWidth - r.right - m, 40, 120);
+  const dy = jump(Math.max(70 - r.top, -160), Math.min(navTop - r.bottom - m, 160), 60, 140);
+  el.style.transform = `translate(${dx}px, ${dy}px)`;
+  const n = dodges.get(el) ?? 0;
+  dodges.set(el, n + 1);
+  note.textContent = n + 1 === MAX_DODGES ? "Dobra, poddaję się. Klikaj 🙂" : LINES[n];
 }
 
-// ucieka tylko przy „Tak”; kto ma uwagi, nie powinien gonić przycisku
-const canDodge = () => !calm && i === last && dodges < MAX_DODGES && value("invite") === "Tak";
-next.addEventListener("pointerenter", (e) => {
-  if (e.pointerType === "mouse" && canDodge()) dodge();
-});
-next.addEventListener("pointerdown", (e) => {
-  suppressClick = false;
-  if (e.pointerType === "mouse" || !canDodge()) return;
-  suppressClick = true;
-  dodge();
-});
+const runaways = [...form.querySelectorAll('input[name="invite"]')]
+  .filter((input) => input.value !== "Tak")
+  .map((input) => input.closest(".opt"));
+const canDodge = (el) => !calm && (dodges.get(el) ?? 0) < MAX_DODGES;
+
+for (const el of runaways) {
+  el.addEventListener("pointerenter", (e) => {
+    if (e.pointerType === "mouse" && canDodge(el)) dodge(el);
+  });
+  el.addEventListener("pointerdown", (e) => {
+    suppressClick = false;
+    if (e.pointerType === "mouse" || !canDodge(el)) return;
+    suppressClick = true;
+    dodge(el);
+  });
+  el.addEventListener("click", (e) => {
+    if (suppressClick) { e.preventDefault(); suppressClick = false; }
+  });
+}
 
 async function send() {
   const data = new FormData();
@@ -137,7 +143,6 @@ async function send() {
     $("done").hidden = false;
   } catch {
     next.disabled = false;
-    next.style.transform = "none";
     note.textContent = "Nie udało się wysłać. Spróbuj jeszcze raz albo napisz na serafingerald@protonmail.com.";
   }
 }
