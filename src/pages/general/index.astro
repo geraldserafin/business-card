@@ -12,6 +12,11 @@ import ContactBar from "../../components/ContactBar.astro";
   <h1>Gerald Serafin</h1>
   <p class="lead">Student informatyki z Gdańska. Szukam pracy: najchętniej w IT, ale otwarty jestem też na inne role.</p>
 
+  <div class="cv">
+    <a class="btn" href="../cv/Gerald_Serafin_CV_General_PL.pdf" download>Pobierz CV</a>
+    <a href="../cv/Gerald_Serafin_CV_General_EN.pdf" download>CV in English</a>
+  </div>
+
   <h2>Co o mnie warto wiedzieć</h2>
   <ul class="facts">
     <li><strong>Praca z klientem</strong>Wdrażałem płacących klientów i prowadziłem dema. W ostatniej pracy pomagałem w obsłudze klienta i administrowałem stroną.</li>
@@ -21,13 +26,16 @@ import ContactBar from "../../components/ContactBar.astro";
 
   <h2>Więcej</h2>
   <ul class="links">
-    <li><a href="../cv/Gerald_Serafin_CV_General_PL.pdf">CV po polsku (PDF)</a></li>
-    <li><a href="../cv/Gerald_Serafin_CV_General_EN.pdf">CV in English (PDF)</a></li>
     <li><a href="https://linkedin.com/in/gerald-serafin">LinkedIn</a></li>
     <li><a href="https://github.com/geraldserafin">GitHub</a></li>
   </ul>
 
-  <p class="switch">Szukasz programisty? <a href="../">Zobacz wersję dla developerów</a>. Masz chwilę? <a href="../feedback/?v=general">Powiedz, jak ci smakowała wróżba</a>.</p>
+  <aside class="feedback">
+    <p><strong>Byłeś/aś na Talent Days?</strong> Powiedz, jak ci smakowała wróżba. To 30 sekund.</p>
+    <a class="btn" href="../feedback/?v=general">Wypełnij ankietę</a>
+  </aside>
+
+  <p class="switch">Szukasz programisty? <a href="../">Zobacz wersję dla developerów</a>.</p>
 </main>
   <ContactBar root="../" />
 </Base>
