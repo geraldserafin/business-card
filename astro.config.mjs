@@ -1,10 +1,9 @@
 import { defineConfig } from "astro/config";
 
-// Strona stoi pod /business-card/ na GitHub Pages. Adresy muszą zostać takie
-// same jak w wydrukowanych kodach QR: /business-card/ i /business-card/general/.
+// Strona stoi na własnej domenie (GitHub Pages, custom domain). Stare adresy
+// geraldserafin.github.io/business-card/ GitHub przekierowuje na nią sam.
 export default defineConfig({
-  site: "https://geraldserafin.github.io",
-  base: "/business-card",
+  site: "https://geraldserafin.com",
   trailingSlash: "always",
   build: { format: "directory" },
 });

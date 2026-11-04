@@ -8,12 +8,12 @@
   };
   packages = [ pkgs.qrencode pkgs.python3 ];
 
-  # podglad lokalny: `serve` -> http://localhost:4321/business-card/
+  # podglad lokalny: `serve` -> http://localhost:4321/
   scripts.serve.exec = ''pnpm --dir "$DEVENV_ROOT" dev'';
 
   # kody QR: `qr <adres bazowy>` -> public/qr/main.svg, public/qr/general.svg
   scripts.qr.exec = ''
-    base="''${1:?podaj adres bazowy, np. https://geraldserafin.github.io/business-card}"
+    base="''${1:?podaj adres bazowy, np. https://geraldserafin.com}"
     base="''${base%/}"
     mkdir -p "$DEVENV_ROOT/public/qr"
     qrencode -t SVG -m 1 -l M -o "$DEVENV_ROOT/public/qr/main.svg" "$base/"
