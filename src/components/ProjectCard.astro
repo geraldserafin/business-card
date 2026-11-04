@@ -1,0 +1,84 @@
+---
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+
+// media: nazwa bez rozszerzenia; plik public/media/<media>.mp4 (opcjonalnie .webm i .jpg jako plakat)
+interface Props {
+  title: string;
+  href?: string;
+  media?: string;
+}
+const { title, href, media } = Astro.props;
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+const has = (ext: string) => !!media && existsSync(join(process.cwd(), "public/media", `${media}.${ext}`));
+const url = (ext: string) => `${base}/media/${media}.${ext}`;
+const video = has("mp4") || has("webm");
+---
+
+<article class="card">
+  {
+    video && (
+      <video
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster={has("jpg") ? url("jpg") : undefined}
+        aria-label={`Nagranie: ${title}`}
+      >
+        {has("webm") && <source src={url("webm")} type="video/webm" />}
+        {has("mp4") && <source src={url("mp4")} type="video/mp4" />}
+      </video>
+    )
+  }
+  <div class="card-body">
+    <h3>{href ? <a href={href}>{title}</a> : title}</h3>
+    <p><slot /></p>
+  </div>
+</article>
+
+<style is:global>
+  .card {
+    margin-top: 1rem;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .card video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    background: var(--line);
+    object-fit: cover;
+  }
+  .card-body { padding: 1rem; }
+  .card h3 {
+    margin: 0 0 .25rem;
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+  .card p { margin: 0; }
+</style>
+
+<script>
+  // film gra tylko wtedy, gdy karta jest widoczna; przy reduced-motion zostaje plakat z kontrolkami
+  const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const videos = document.querySelectorAll<HTMLVideoElement>(".card video");
+  if (calm) {
+    videos.forEach((v) => (v.controls = true));
+  } else {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const { target, isIntersecting } of entries) {
+          const v = target as HTMLVideoElement;
+          if (isIntersecting) v.play().catch(() => {});
+          else v.pause();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    videos.forEach((v) => io.observe(v));
+  }
+</script>

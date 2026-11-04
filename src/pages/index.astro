@@ -1,6 +1,7 @@
 ---
 import Base from "../layouts/Base.astro";
 import ContactBar from "../components/ContactBar.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 ---
 
 <Base
@@ -38,36 +39,32 @@ import ContactBar from "../components/ContactBar.astro";
       </div>
 
       <h2>Co zrobiłem</h2>
-      <ul class="facts">
-        <li>
-          <strong>Produkt z ponad 2000 płatnych subskrypcji</strong>Przejąłem
-          jego frontend na wczesnym etapie i dowiozłem czat, kreator produktów
-          cyfrowych, cały Clipping i funkcje związane z communities. SvelteKit,
-          Svelte 5, TypeScript.
-        </li>
-        <li>
-          <strong
-            ><a href="https://geraldserafin.github.io/electro/"
-              >electro</a
-            ></strong
-          >Notatnik do elektroniki w przeglądarce: obwód piszesz jako kod, a
-          dostajesz rozwiązanie krok po kroku, z prawem, z którego wynika każdy
-          krok. Działa na WebAssembly, a w środku jest emulator raspberry pi
-          pico, na którym
-          <a
-            href="https://geraldserafin.github.io/electro/examples/4-przyklady/01-doom"
-            >działa Doom</a
-          >.
-        </li>
-        <li>
-          <strong
-            ><a href="https://geraldserafin.github.io/slideit"
-              >slideit</a
-            ></strong
-          >Kompilator prezentacji, który animuje zmiany w kodzie między slajdami
-          na podstawie diffa AST. Opublikowany na npm.
-        </li>
-      </ul>
+      <ProjectCard title="Produkt z ponad 2000 płatnych subskrypcji" media="product">
+        Przejąłem jego frontend na wczesnym etapie i dowiozłem czat, kreator
+        produktów cyfrowych, cały Clipping i funkcje związane z communities.
+        SvelteKit, Svelte 5, TypeScript.
+      </ProjectCard>
+      <ProjectCard
+        title="electro"
+        href="https://geraldserafin.github.io/electro/"
+        media="electro"
+      >
+        Notatnik do elektroniki w przeglądarce: obwód piszesz jako kod, a
+        dostajesz rozwiązanie krok po kroku, z prawem, z którego wynika każdy
+        krok. Działa na WebAssembly, a w środku jest emulator raspberry pi pico,
+        na którym
+        <a href="https://geraldserafin.github.io/electro/examples/4-przyklady/01-doom"
+          >działa Doom</a
+        >.
+      </ProjectCard>
+      <ProjectCard
+        title="slideit"
+        href="https://geraldserafin.github.io/slideit"
+        media="slideit"
+      >
+        Kompilator prezentacji, który animuje zmiany w kodzie między slajdami na
+        podstawie diffa AST. Opublikowany na npm.
+      </ProjectCard>
     </main>
   <ContactBar
     cv="Gerald_Serafin_CV_EN.pdf"
