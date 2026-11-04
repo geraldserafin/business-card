@@ -8,7 +8,7 @@ const mail =
 
 <div class="contact-bar">
   <button type="button" class="btn" data-open>Kontakt</button>
-  <a class="btn primary" href={feedback}>Zostaw opinię (30 s)</a>
+  <a class="btn primary" href={feedback}>Wypełnij ankietę (30s)</a>
 </div>
 
 <dialog id="contact" aria-labelledby="contact-title">
@@ -30,7 +30,7 @@ const mail =
     z-index: 10;
     display: flex;
     gap: .6rem;
-    padding: .75rem max(16px, calc((100% - 34rem) / 2)) calc(.75rem + env(safe-area-inset-bottom));
+    padding: .75rem max(16px, calc((100% - var(--w)) / 2)) calc(.75rem + env(safe-area-inset-bottom));
     background: var(--bg);
     border-top: 1px solid var(--line);
   }

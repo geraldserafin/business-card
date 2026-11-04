@@ -1,12 +1,14 @@
 ---
 import Actions from "./Actions.astro";
-// cv: nazwa pliku CV
-const { cv } = Astro.props;
+// root: prefiks do public/ i strony głównej ("" na głównej, "../" w podkatalogu)
+// cv: nazwa pliku CV; slot: dodatki na dole paska (np. postęp ankiety)
+const { root = "", cv } = Astro.props;
 ---
 
 <nav class="navbar" aria-label="Skróty">
-  <span class="name">Gerald Serafin</span>
-  <Actions cv={cv} />
+  <a class="name" href={root || "./"}>Gerald Serafin</a>
+  <Actions root={root} cv={cv} />
+  <slot />
 </nav>
 
 <style is:global>
@@ -19,7 +21,7 @@ const { cv } = Astro.props;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: .6rem max(16px, calc((100% - 34rem) / 2));
+    padding: .6rem max(16px, calc((100% - var(--w)) / 2));
     background: var(--bg);
     border-bottom: 1px solid var(--line);
     transform: translateY(-100%);
@@ -33,13 +35,18 @@ const { cv } = Astro.props;
     font-size: 1.15rem;
     font-weight: 600;
     white-space: nowrap;
+    color: inherit;
+    text-decoration: none;
   }
 </style>
 
 <script>
   const nav = document.querySelector<HTMLElement>(".navbar")!;
   const row = document.querySelector(".hero-row");
+  // bez nagłówka na stronie (np. ankieta) pasek jest widoczny od razu
   if (row) {
     new IntersectionObserver(([e]) => nav.toggleAttribute("data-shown", !e.isIntersecting)).observe(row);
+  } else {
+    nav.setAttribute("data-shown", "");
   }
 </script>

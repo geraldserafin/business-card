@@ -1,11 +1,7 @@
-.bar { position: fixed; inset: 0 0 auto 0; z-index: 10; background: var(--bg); border-bottom: 1px solid var(--line); }
-.bar-in { display: flex; align-items: center; justify-content: space-between; gap: 1rem; max-width: 34rem; margin: 0 auto; padding: .6rem 16px; }
-.bar a.name { font-family: var(--serif); font-weight: 600; text-decoration: none; }
-.bar .btn { padding: .4rem .9rem; font-size: .9rem; }
-.progress { height: 2px; background: var(--line); }
+.navbar .progress { position: absolute; inset: auto 0 -1px; height: 2px; }
 .progress i { display: block; height: 100%; width: 0; background: var(--fg); transition: width .3s ease; }
 
-main { display: flex; flex-direction: column; min-height: 100dvh; padding-top: 4.5rem; padding-bottom: 0; }
+main { display: flex; flex-direction: column; min-height: 100dvh; padding-top: 5.5rem; padding-bottom: 0; }
 form { display: flex; flex: 1; flex-direction: column; }
 #done:not([hidden]) { display: flex; flex: 1; flex-direction: column; justify-content: center; text-align: center; padding-bottom: 2rem; }
 .step:not([hidden]) { display: flex; flex: 1; flex-direction: column; justify-content: center; text-align: center; animation: in .25s ease-out; }

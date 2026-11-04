@@ -1,16 +1,13 @@
 ---
 import Base from "../../layouts/Base.astro";
+import Navbar from "../../components/Navbar.astro";
 import "../../styles/feedback.css";
 ---
 
 <Base title="Jak ci smakowała wróżba?" noindex>
-  <header class="bar">
-  <div class="bar-in">
-    <a class="name" href="../">Gerald Serafin</a>
-    <a class="btn" id="cv" href="../cv/Gerald_Serafin_CV_EN.pdf" download>Pobierz CV</a>
-  </div>
-  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
-</header>
+  <Navbar root="../" cv="Gerald_Serafin_CV_EN.pdf">
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  </Navbar>
 
   <main>
     <form id="form" novalidate>

@@ -13,14 +13,14 @@ const GOOGLE = {
 
 const WHY = {
   "Tak": "Co cię przekonało?",
-  "Może, ale czegoś mi brakuje": "Co musiałoby się zmienić, żebyś odpowiedział(a) „tak”?",
-  "Nie": "Czego zabrakło albo co cię zniechęciło?",
+  "Może, ale czegoś mi brakuje": "Jak z „może” mogę zrobić „tak”?",
+  "Nie": "Jak z „nie” mogę zrobić „tak”?",
 };
 
 // Wersja ogólna linkuje tu z ?v=general, żeby przycisk CV dawał właściwe CV.
 if (new URLSearchParams(location.search).get("v") === "general") {
-  for (const id of ["cv", "cv2"]) {
-    document.getElementById(id).href = "../cv/Gerald_Serafin_CV_General_EN.pdf";
+  for (const a of document.querySelectorAll("a[download]")) {
+    a.href = "../cv/Gerald_Serafin_CV_General_EN.pdf";
   }
 }
 
