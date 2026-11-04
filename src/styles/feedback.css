@@ -36,5 +36,10 @@ textarea { min-height: 8rem; resize: vertical; }
 .nav #next:disabled { opacity: .35; cursor: default; }
 .nav #back { border-color: var(--line); }
 .note { min-height: 1.4em; margin: 0; color: var(--muted); font-size: .9rem; text-align: center; }
-.big { width: 100%; margin-top: 1.5rem; font: inherit; font-weight: 500; cursor: pointer; }
 [hidden] { display: none !important; }
+
+#done .emoji { margin: 0 0 .5rem; font-size: 3rem; line-height: 1; }
+#done h2 { margin: 0 0 .5rem; padding: 0; border: 0; font-size: 2.2rem; }
+#done .lead { margin: 0 0 1.5rem; }
+#done .hint { margin: 0 0 .75rem; }
+#done .btns { display: grid; gap: .6rem; padding-bottom: 1.5rem; }
