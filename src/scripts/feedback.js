@@ -20,7 +20,7 @@ const WHY = {
 // Wersja ogólna linkuje tu z ?v=general, żeby przycisk CV dawał właściwe CV.
 if (new URLSearchParams(location.search).get("v") === "general") {
   for (const id of ["cv", "cv2"]) {
-    document.getElementById(id).href = "../cv/Gerald_Serafin_CV_General_PL.pdf";
+    document.getElementById(id).href = "../cv/Gerald_Serafin_CV_General_EN.pdf";
   }
 }
 

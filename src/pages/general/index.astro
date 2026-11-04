@@ -13,8 +13,7 @@ import ContactBar from "../../components/ContactBar.astro";
   <p class="lead">Student informatyki z Gdańska. Szukam pracy: najchętniej w IT, ale otwarty jestem też na inne role.</p>
 
   <div class="cv">
-    <a class="btn" href="../cv/Gerald_Serafin_CV_General_PL.pdf" download>Pobierz CV</a>
-    <a href="../cv/Gerald_Serafin_CV_General_EN.pdf" download>CV in English</a>
+    <a class="btn" href="../cv/Gerald_Serafin_CV_General_EN.pdf" download>Pobierz CV</a>
   </div>
 
   <h2>Co o mnie warto wiedzieć</h2>
@@ -34,7 +33,7 @@ import ContactBar from "../../components/ContactBar.astro";
 </main>
   <ContactBar
     root="../"
-    cv={{ pl: "Gerald_Serafin_CV_General_PL.pdf", en: "Gerald_Serafin_CV_General_EN.pdf" }}
+    cv="Gerald_Serafin_CV_General_EN.pdf"
     feedback="../feedback/?v=general"
   />
 </Base>
