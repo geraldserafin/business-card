@@ -1,0 +1,45 @@
+---
+import Actions from "./Actions.astro";
+// cv: nazwa pliku CV
+const { cv } = Astro.props;
+---
+
+<nav class="navbar" aria-label="Skróty">
+  <span class="name">Gerald Serafin</span>
+  <Actions cv={cv} />
+</nav>
+
+<style is:global>
+  /* pasek zjeżdża z góry, gdy wiersz z nagłówkiem (.hero-row) zniknie z ekranu */
+  .navbar {
+    position: fixed;
+    inset: 0 0 auto 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .6rem max(16px, calc((100% - 34rem) / 2));
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    transform: translateY(-100%);
+    visibility: hidden;
+    transition: transform .25s ease, visibility .25s;
+  }
+  .navbar[data-shown] { transform: none; visibility: visible; }
+  @media (prefers-reduced-motion: reduce) { .navbar { transition: none; } }
+  .navbar .name {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>(".navbar")!;
+  const row = document.querySelector(".hero-row");
+  if (row) {
+    new IntersectionObserver(([e]) => nav.toggleAttribute("data-shown", !e.isIntersecting)).observe(row);
+  }
+</script>

@@ -7,7 +7,8 @@ const mail =
 ---
 
 <div class="contact-bar">
-  <button type="button" class="btn primary" data-open>Kontakt, CV, ankieta</button>
+  <button type="button" class="btn" data-open>Kontakt</button>
+  <a class="btn primary" href={feedback}>Zostaw opinię (30 s)</a>
 </div>
 
 <dialog id="contact" aria-labelledby="contact-title">
@@ -16,11 +17,6 @@ const mail =
     <a class="btn primary" href={mail}>Umów rozmowę</a>
     <a class="btn" href="tel:+48530585515">Zadzwoń: +48 530 585 515</a>
     <a class="btn" href={`${root}contact.vcf`} download>Zapisz kontakt</a>
-    <a class="btn" href={`${root}cv/${cv}`} download>Pobierz CV</a>
-    <div class="survey">
-      <p>Byłeś/aś na Talent Days? Powiedz, jak ci smakowała wróżba.</p>
-      <a class="btn" href={feedback}>Wypełnij ankietę (30 s)</a>
-    </div>
     <button type="button" class="close" data-close>Zamknij</button>
   </div>
 </dialog>
@@ -32,18 +28,21 @@ const mail =
     position: fixed;
     inset: auto 0 0 0;
     z-index: 10;
+    display: flex;
+    gap: .6rem;
+    padding: .75rem max(16px, calc((100% - 34rem) / 2)) calc(.75rem + env(safe-area-inset-bottom));
     background: var(--bg);
     border-top: 1px solid var(--line);
   }
   .contact-bar .btn {
-    display: block;
-    width: calc(100% - 32px);
-    max-width: 34rem;
-    margin: .75rem auto calc(.75rem + env(safe-area-inset-bottom));
+    flex: 1;
+    white-space: nowrap;
     font: inherit;
     font-weight: 500;
     cursor: pointer;
   }
+
+  .contact-bar button.btn { flex: 0 0 auto; background: none; }
 
   dialog#contact {
     width: 100%;
@@ -59,8 +58,6 @@ const mail =
   dialog#contact::backdrop { background: rgb(0 0 0 / .45); }
   dialog#contact h2 { margin: 0 0 1rem; }
   dialog#contact .options { display: grid; gap: .6rem; }
-  dialog#contact .survey { margin-top: .4rem; padding-top: .9rem; border-top: 1px solid var(--line); }
-  dialog#contact .survey p { margin: 0 0 .6rem; color: var(--muted); font-size: .9rem; }
   dialog#contact .close {
     padding: .7rem;
     border: 0;

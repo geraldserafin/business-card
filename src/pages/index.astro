@@ -1,25 +1,26 @@
 ---
 import Base from "../layouts/Base.astro";
 import ContactBar from "../components/ContactBar.astro";
+import Actions from "../components/Actions.astro";
+import Navbar from "../components/Navbar.astro";
 import ProjectCard from "../components/ProjectCard.astro";
 ---
 
 <Base
-  title="Gerald Serafin, developer"
-  description="Gerald Serafin, frontend developer z Gdańska. SvelteKit, TypeScript, React."
+  title="Gerald Serafin, programista"
+  description="Gerald Serafin, programista i student informatyki z Gdańska. Szuka nowej roli."
 >
+  <Navbar cv="Gerald_Serafin_CV_EN.pdf" />
   <main>
-      <p class="eyebrow">Cześć, tu Gerald z Talent Days</p>
-      <h1>Gerald Serafin</h1>
+      <p class="eyebrow">Miło cię poznać na Talent Days</p>
+      <div class="hero-row">
+        <h1>Gerald Serafin</h1>
+        <Actions cv="Gerald_Serafin_CV_EN.pdf" />
+      </div>
       <p class="lead">
-        Frontend developer z Gdańska. Piszę w SvelteKit, TypeScripcie i Reakcie,
-        szukam pracy.
+        Młody programista i student informatyki z Gdańska. Najczęściej piszę w
+        TypeScripcie, ale szybko łapię nowe technologie. Szukam nowej roli.
       </p>
-
-      <ul class="links">
-        <li><a href="https://linkedin.com/in/gerald-serafin">LinkedIn</a></li>
-        <li><a href="https://github.com/geraldserafin">GitHub</a></li>
-      </ul>
 
       <ul class="chips">
         <li>TypeScript</li>
@@ -34,17 +35,12 @@ import ProjectCard from "../components/ProjectCard.astro";
         <li>Flutter</li>
       </ul>
 
-      <div class="cv">
-        <a class="btn" href="cv/Gerald_Serafin_CV_EN.pdf" download>Pobierz CV</a>
-      </div>
-
       <h2>Trochę o mnie</h2>
       <div class="about">
-        <img src="img/ja.jpg" alt="Gerald przy obiedzie, uśmiechnięty znad miski makaronu" width="640" height="640" />
         <p>
           <strong>Koduję od 13. roku życia.</strong> Wszystko zaczęło się, kiedy
-          tata chciał zrobić aplikację mobilną, a ja stwierdziłem, że zrobię ją
-          sam. Nie udało się 😅 Ale od tamtej pory nie przestałem: C++, PHP, web
+          tata miał pomysł na aplikację mobilną, a ja stwierdziłem, że mu ją
+          zrobię. Nie udało się 😅 Ale od tamtej pory nie przestałem: C++, PHP, web
           i przez 10 lat mnóstwo innych rzeczy, dla samej frajdy. Dzięki temu
           szybko wchodzę w nowe technologie.
         </p>
@@ -60,7 +56,7 @@ import ProjectCard from "../components/ProjectCard.astro";
         </p>
         <p>
           <strong>Studiuję informatykę na PJATK</strong>, jestem na piątym
-          semestrze. Idzie jakoś 😉
+          semestrze.
         </p>
       </div>
 

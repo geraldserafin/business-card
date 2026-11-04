@@ -44,6 +44,14 @@ main {
   text-transform: uppercase;
 }
 
+.hero-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 h1 {
   margin: 0 0 1rem;
   font-family: var(--serif);
@@ -51,6 +59,13 @@ h1 {
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -.01em;
+}
+
+.hero-row h1 {
+  margin: 0;
+  /* 190px: guziki obok + marginesy, żeby imię mieściło się w jednej linii */
+  font-size: clamp(1.2rem, calc((100vw - 190px) / 6.4), 2.6rem);
+  white-space: nowrap;
 }
 
 .lead {
@@ -161,15 +176,4 @@ a {
 .about .vim {
   font-size: 1.6rem;
   font-weight: 600;
-}
-
-.about img {
-  display: block;
-  width: 100%;
-  max-width: 20rem;
-  height: auto;
-  aspect-ratio: 1;
-  margin-top: 1rem;
-  border-radius: 3px;
-  object-fit: cover;
 }
