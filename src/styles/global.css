@@ -159,7 +159,6 @@ a {
 .about p { margin: 1rem 0 0; }
 
 .about .vim {
-  font-family: var(--serif);
   font-size: 1.6rem;
   font-weight: 600;
 }
