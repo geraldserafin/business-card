@@ -1,0 +1,79 @@
+---
+// root: prefiks do plików z public/ ("" na głównej, "../" w podkatalogu)
+const { root = "" } = Astro.props;
+const mail =
+  "mailto:serafingerald@protonmail.com?subject=Rozmowa%20po%20Talent%20Days&body=Cze%C5%9B%C4%87%20Gerald%2C%20poznali%C5%9Bmy%20si%C4%99%20na%20Talent%20Days.%20";
+---
+
+<div class="contact-bar">
+  <button type="button" class="btn primary" data-open>Skontaktuj się</button>
+</div>
+
+<dialog id="contact" aria-labelledby="contact-title">
+  <h2 id="contact-title">Skontaktuj się</h2>
+  <div class="options">
+    <a class="btn primary" href={mail}>Umów rozmowę</a>
+    <a class="btn" href="tel:+48530585515">Zadzwoń: +48 530 585 515</a>
+    <a class="btn" href={`${root}contact.vcf`} download>Zapisz kontakt</a>
+    <button type="button" class="close" data-close>Zamknij</button>
+  </div>
+</dialog>
+
+<style is:global>
+  main { padding-bottom: 6.5rem; }
+
+  .contact-bar {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 10;
+    background: var(--bg);
+    border-top: 1px solid var(--line);
+  }
+  .contact-bar .btn {
+    display: block;
+    width: calc(100% - 32px);
+    max-width: 34rem;
+    margin: .75rem auto calc(.75rem + env(safe-area-inset-bottom));
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  dialog#contact {
+    width: 100%;
+    max-width: 34rem;
+    margin: auto auto 0;
+    padding: 1.25rem 16px calc(1rem + env(safe-area-inset-bottom));
+    border: 1px solid var(--line);
+    border-radius: 8px 8px 0 0;
+    background: var(--bg);
+    color: var(--fg);
+  }
+  dialog#contact[open] { animation: sheet .2s ease-out; }
+  dialog#contact::backdrop { background: rgb(0 0 0 / .45); }
+  dialog#contact h2 { margin: 0 0 1rem; }
+  dialog#contact .options { display: grid; gap: .6rem; }
+  dialog#contact .close {
+    padding: .7rem;
+    border: 0;
+    background: none;
+    color: var(--muted);
+    font: inherit;
+    cursor: pointer;
+  }
+  @keyframes sheet { from { transform: translateY(24px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { dialog#contact[open] { animation: none; } }
+  @media (min-width: 30rem) {
+    dialog#contact { margin: auto; border-radius: 8px; }
+  }
+</style>
+
+<script>
+  const dialog = document.getElementById("contact") as HTMLDialogElement;
+  document.querySelector("[data-open]")?.addEventListener("click", () => dialog.showModal());
+  dialog.querySelector("[data-close]")?.addEventListener("click", () => dialog.close());
+  // klik w tło zamyka
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+</script>

@@ -58,12 +58,6 @@ h1 {
   font-size: 1.1rem;
 }
 
-.actions {
-  display: grid;
-  gap: .6rem;
-  margin-bottom: 2.75rem;
-}
-
 .btn {
   display: block;
   padding: .8rem 1rem;
@@ -82,11 +76,6 @@ h1 {
 }
 
 .btn:active { opacity: .8; }
-
-@media (min-width: 30rem) {
-  .actions { grid-template-columns: 1fr 1fr; }
-  .actions .primary { grid-column: 1 / -1; }
-}
 
 h2 {
   margin: 2.5rem 0 .25rem;
