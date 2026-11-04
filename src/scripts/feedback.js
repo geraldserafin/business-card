@@ -43,7 +43,7 @@ function show(n) {
   next.textContent = i === 0 ? "Zaczynamy" : i === last ? "Wyślij" : "Dalej";
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
-  optList.append(...optOrder);
+  runaway.style.transform = "";
   if (key === "reason") $("why-label").textContent = WHY[value("invite")];
   steps[i].querySelector("input[type=text],textarea")?.focus({ preventScroll: true });
 }
@@ -73,37 +73,20 @@ form.addEventListener("keydown", (e) => {
 });
 form.addEventListener("submit", (e) => e.preventDefault());
 
-// Uciekająca opcja „Raczej nie”: zamienia się miejscami z inną opcją (animacja
-// FLIP, więc nic nie zasłania), po kilku uniku się poddaje. Mysz i dotyk;
+// Uciekająca opcja „Raczej nie”: szybko zjeżdża w dół, w zarezerwowane pod nią
+// miejsce (nic nie zasłania), po kilku unikach się poddaje. Mysz i dotyk;
 // klawiatura działa od razu.
 const MAX_DODGES = 3;
+const STEP = 56; // px na jeden unik; miejsce pod listą w CSS: .runs
 const LINES = ["Ej!", "Za wolny/a 😏", "Ostatni raz…"];
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const runaway = form.querySelector('input[value="Nie"]').closest(".opt");
-const optList = runaway.parentElement;
-const optOrder = [...optList.children];
 let dodges = 0;
+if (!calm) runaway.parentElement.classList.add("runs");
 
 function dodge() {
-  const opts = [...optList.children];
-  const before = opts.map((el) => el.getBoundingClientRect().top);
-  const from = opts.indexOf(runaway);
-  let to;
-  do to = Math.floor(Math.random() * opts.length); while (to === from);
-  optList.insertBefore(runaway, opts.filter((el) => el !== runaway)[to] ?? null);
-
-  // FLIP: każda opcja wjeżdża z dawnego miejsca na nowe
-  opts.forEach((el, k) => {
-    el.style.transition = "none";
-    el.style.transform = `translateY(${before[k] - el.getBoundingClientRect().top}px)`;
-  });
-  optList.getBoundingClientRect();
-  for (const el of opts) {
-    el.style.transition = "transform .28s ease";
-    el.style.transform = "";
-  }
-
   dodges++;
+  runaway.style.transform = `translateY(${dodges * STEP}px)`;
   note.textContent = dodges === MAX_DODGES ? "Dobra, poddaję się. Klikaj 🙂" : LINES[dodges - 1];
 }
 

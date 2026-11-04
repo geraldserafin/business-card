@@ -17,6 +17,8 @@ form { display: flex; flex: 1; flex-direction: column; }
 .hint { color: var(--muted); font-size: .9rem; }
 .opts { display: grid; gap: .5rem; margin-top: 1.25rem; }
 .opt { display: flex; align-items: center; justify-content: flex-start; text-align: left; gap: .7rem; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: 3px; cursor: pointer; }
+.opt { transition: transform .1s ease-out; }
+.opts.runs { padding-bottom: 10.5rem; }
 .opt:hover { border-color: var(--muted); }
 .opt:has(input:checked) { border-color: var(--fg); }
 .opt input { margin: 0; accent-color: var(--fg); }
