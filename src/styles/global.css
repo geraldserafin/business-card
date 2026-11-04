@@ -153,13 +153,3 @@ a {
 }
 
 .cv .btn { display: inline-block; padding: .7rem 1.4rem; }
-
-.feedback {
-  margin-top: 2.5rem;
-  padding: 1.25rem;
-  border: 1px solid var(--fg);
-  border-radius: 3px;
-}
-
-.feedback p { margin: 0 0 1rem; }
-.feedback .btn { display: inline-block; padding: .7rem 1.4rem; }

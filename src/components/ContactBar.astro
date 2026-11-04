@@ -1,12 +1,13 @@
 ---
 // root: prefiks do plików z public/ ("" na głównej, "../" w podkatalogu)
-const { root = "" } = Astro.props;
+// cv: nazwy plików CV (PL, EN); feedback: adres ankiety
+const { root = "", cv, feedback } = Astro.props;
 const mail =
   "mailto:serafingerald@protonmail.com?subject=Rozmowa%20po%20Talent%20Days&body=Cze%C5%9B%C4%87%20Gerald%2C%20poznali%C5%9Bmy%20si%C4%99%20na%20Talent%20Days.%20";
 ---
 
 <div class="contact-bar">
-  <button type="button" class="btn primary" data-open>Skontaktuj się</button>
+  <button type="button" class="btn primary" data-open>Kontakt, CV, ankieta</button>
 </div>
 
 <dialog id="contact" aria-labelledby="contact-title">
@@ -15,6 +16,14 @@ const mail =
     <a class="btn primary" href={mail}>Umów rozmowę</a>
     <a class="btn" href="tel:+48530585515">Zadzwoń: +48 530 585 515</a>
     <a class="btn" href={`${root}contact.vcf`} download>Zapisz kontakt</a>
+    <div class="pair">
+      <a class="btn" href={`${root}cv/${cv.pl}`} download>CV po polsku</a>
+      <a class="btn" href={`${root}cv/${cv.en}`} download>CV in English</a>
+    </div>
+    <div class="survey">
+      <p>Byłeś/aś na Talent Days? Powiedz, jak ci smakowała wróżba.</p>
+      <a class="btn" href={feedback}>Wypełnij ankietę (30 s)</a>
+    </div>
     <button type="button" class="close" data-close>Zamknij</button>
   </div>
 </dialog>
@@ -53,6 +62,9 @@ const mail =
   dialog#contact::backdrop { background: rgb(0 0 0 / .45); }
   dialog#contact h2 { margin: 0 0 1rem; }
   dialog#contact .options { display: grid; gap: .6rem; }
+  dialog#contact .pair { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+  dialog#contact .survey { margin-top: .4rem; padding-top: .9rem; border-top: 1px solid var(--line); }
+  dialog#contact .survey p { margin: 0 0 .6rem; color: var(--muted); font-size: .9rem; }
   dialog#contact .close {
     padding: .7rem;
     border: 0;

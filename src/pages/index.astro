@@ -72,17 +72,12 @@ import ContactBar from "../components/ContactBar.astro";
         <li><a href="https://github.com/geraldserafin">GitHub</a></li>
       </ul>
 
-      <aside class="feedback">
-        <p>
-          <strong>Byłeś/aś na Talent Days?</strong> Powiedz, jak ci smakowała
-          wróżba. To 30 sekund.
-        </p>
-        <a class="btn" href="feedback/">Wypełnij ankietę</a>
-      </aside>
-
       <p class="switch">
         Szukasz kogoś do innej roli? <a href="general/">Zobacz wersję ogólną</a>.
       </p>
     </main>
-  <ContactBar />
+  <ContactBar
+    cv={{ pl: "Gerald_Serafin_CV_PL.pdf", en: "Gerald_Serafin_CV_EN.pdf" }}
+    feedback="feedback/"
+  />
 </Base>
