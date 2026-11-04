@@ -44,6 +44,7 @@ function show(n) {
   next.disabled = steps[i].hasAttribute("data-required") && !value(key);
   note.textContent = "";
   runaway.style.transform = "";
+  document.activeElement?.blur();
   if (key === "reason") $("why-label").textContent = WHY[value("invite")];
   steps[i].querySelector("input[type=text],textarea")?.focus({ preventScroll: true });
 }
@@ -82,11 +83,15 @@ const LINES = ["Ej!", "Za wolny/a 😏", "Ostatni raz…"];
 const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
 const runaway = form.querySelector('input[value="Nie"]').closest(".opt");
 let dodges = 0;
-if (!calm) runaway.parentElement.classList.add("runs");
+if (!calm) {
+  runaway.parentElement.classList.add("runs");
+  runaway.classList.add("fleeing");
+}
 
 function dodge() {
   dodges++;
   runaway.style.transform = `translateY(${dodges * STEP}px)`;
+  if (dodges === MAX_DODGES) runaway.classList.remove("fleeing");
   note.textContent = dodges === MAX_DODGES ? "Dobra, poddaję się. Klikaj 🙂" : LINES[dodges - 1];
 }
 
@@ -96,7 +101,8 @@ runaway.addEventListener("pointerenter", (e) => {
 });
 runaway.addEventListener("pointerdown", (e) => {
   suppressClick = false;
-  if (e.pointerType === "mouse" || !canDodge()) return;
+  if (!canDodge()) return;
+  e.preventDefault(); // bez fokusu i podświetlenia na uciekającej opcji
   suppressClick = true;
   dodge();
 });
